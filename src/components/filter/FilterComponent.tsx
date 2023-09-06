@@ -8,6 +8,7 @@ function classNames(...classes: string[]) {
   return temp;
 }
 
+
 const styleSelected = " bg-gray-100 text-gray-900 block px-4 py-2 text-sm";
 export default function FilterComponent({
   title = "Title Menu",
@@ -46,7 +47,7 @@ export default function FilterComponent({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-24 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none cursor-pointer">
           <div className="py-1">
             {menuItems.map((item, i) => {
               const isSelected = value === item;

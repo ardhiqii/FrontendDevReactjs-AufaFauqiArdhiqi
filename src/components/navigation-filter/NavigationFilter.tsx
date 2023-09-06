@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import FilterComponent from "../filter/FilterComponent";
 import RadioComponent from "../filter/RadioComponent";
 import ButtonFilter from "../button/ButtonFilter";
@@ -12,14 +12,11 @@ const categories = [
   "Spanyol",
   "Sunda",
 ];
-const prices = ["< Rp 50.0000", "> Rp 50.0000"];
-function NavigationFilter() {
-  const [filterValues, setFilterValues] = useState<FilterValues>({
-    open: false,
-    price: "Price",
-    category: "Categories",
-  });
-
+const prices = ["<= 400$", "> 400$"];
+function NavigationFilter({
+  filterValues,
+  setFilterValues,
+}: PropsNavigationFilter) {
   return (
     <div className="flex border-y-2 py-2 w-full items-center justify-between px-5 ">
       <div className="flex items-center gap-x-5">
@@ -57,4 +54,10 @@ export interface FilterValues {
   open: boolean;
   price: string;
   category: string;
+  reset: boolean;
+}
+
+interface PropsNavigationFilter {
+  filterValues: FilterValues;
+  setFilterValues: Dispatch<SetStateAction<FilterValues>>;
 }
