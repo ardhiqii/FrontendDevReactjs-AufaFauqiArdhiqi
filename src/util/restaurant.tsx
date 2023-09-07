@@ -11,9 +11,14 @@ export const getAllRestaurant = async (start: number = 0,end: number) =>{
 
 export const getRestaurantDetail = async (id:string) =>{
     const API = `${BASE_URL}/detail/${id}`
-    const {data} = await axios.get(API)
-    const restaurant = data.restaurant
-    return restaurant
+    try{
+        const {data} = await axios.get(API)
+        const restaurant = data.restaurant
+        return restaurant
+    }catch(e){
+        return e
+    }
+    
 }
 
 export const getRestaurantByCategory = async (category:string) =>{

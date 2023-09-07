@@ -11,6 +11,7 @@ import {
   getFilteredRestaurantByPrice,
   getRestaurantByCategory,
 } from "../../util/restaurant";
+import Loading from "../../components/loading/Loading";
 const MainPage = () => {
   const [defaultData, setDefaultData] = useState<[]>();
   const [dataRestaurant, setDataRestaurant] = useState<[]>();
@@ -53,11 +54,11 @@ const MainPage = () => {
         tempData = getFilteredRestaurantByPrice(tempData, price);
       }
 
-      if(open == true){
-        tempData = tempData?.filter((d)=>{
-          const id = d.id
-          return OPEN_DATA[id] == true
-        })
+      if (open == true) {
+        tempData = tempData?.filter((d) => {
+          const id = d.id;
+          return OPEN_DATA[id] == true;
+        });
       }
       tempData = tempData?.slice(amount.start, amount.total);
       setDataRestaurant(tempData);
@@ -100,9 +101,7 @@ const MainPage = () => {
       />
       <div className=" w-full ">
         {loading ? (
-          <>
-            <h1>LOADING TOT</h1>
-          </>
+          <Loading />
         ) : (
           <div className="flex flex-wrap gap-7 w-[81%] m-auto">
             {dataRestaurant?.map((res, i) => {
@@ -117,19 +116,19 @@ const MainPage = () => {
               };
               return <CardRestaurant {...resData} key={i} />;
             })}
+            {filterValues.category == "Categories" &&
+              filterValues.price == "Price" &&
+              dataRestaurant?.length < 20 && (
+                <div
+                  onClick={loadMoreHandler}
+                  className="my-4 mx-auto border-2 font-semibold border-cyan-950 text-cyan-950 flex justify-center py-2 px-36 cursor-pointer hover:bg-gray-300"
+                >
+                  <p>LOAD MORE</p>
+                </div>
+              )}
           </div>
         )}
       </div>
-      {filterValues.category == "Categories" &&
-        filterValues.price == "Price" &&
-        dataRestaurant?.length < 20 && (
-          <div
-            onClick={loadMoreHandler}
-            className="my-4 mx-auto border-2 font-semibold border-cyan-950 text-cyan-950 flex justify-center py-2 px-36 cursor-pointer hover:bg-gray-300"
-          >
-            <p>LOAD MORE</p>
-          </div>
-        )}
     </div>
   );
 };
