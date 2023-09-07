@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getRestaurantDetail } from "../../util/restaurant";
 import { MapPinIcon, StarIcon } from "@heroicons/react/20/solid";
@@ -24,9 +24,9 @@ const DetailViewPage = () => {
     getData();
   }, []);
   if (loading) {
-    return <Loading/>;
+    return <Loading />;
   }
-  const { name, pictureId, rating, city, address,menus }:any = dataRestaurant;
+  const { name, pictureId, rating, city, address, menus }: any = dataRestaurant;
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="flex flex-col w-96 gap-2 border-2 rounded-md p-4 shadow-xl">
@@ -63,9 +63,9 @@ const DetailViewPage = () => {
               ))}
             </Tab.List>
             <Tab.Panels>
-              {Object.values(menus).map((items:any) => (
+              {Object.values(menus).map((items: any) => (
                 <Tab.Panel className=" flex flex-col gap-y-2 mt-2 h-72 overflow-y-auto">
-                  {items.map(({ name }:any) => (
+                  {items.map(({ name }: any) => (
                     <div className="bg-gray-200 py-1 px-1 font-semibold">
                       {name}
                     </div>
