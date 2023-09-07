@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import FilterComponent from "../filter/FilterComponent";
 import RadioComponent from "../filter/RadioComponent";
 import ButtonFilter from "../button/ButtonFilter";

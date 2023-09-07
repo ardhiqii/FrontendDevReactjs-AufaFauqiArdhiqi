@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { FilterValues } from "../navigation-filter/NavigationFilter";
 
 const styleRadio = "w-4 h-4 rounded-full ";

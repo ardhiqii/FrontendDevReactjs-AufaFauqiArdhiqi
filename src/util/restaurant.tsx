@@ -28,12 +28,12 @@ export const getRestaurantByCategory = async (category:string) =>{
     return restaurants
 }
 
-export const getFilteredRestaurantByPrice = (data:[] | undefined,selected:string) =>{
+export const getFilteredRestaurantByPrice = (data: any[],selected:string) =>{
     if(!data){
         return[]
     }
-    if(selected == "<= 400$"){
-        return data.filter((d)=>(d.rating * 100) <= 400)
+    if(selected == "<= 400$"){ 
+        return data.filter((d)=>(d?.rating * 100) <= 400)
     }else{
         return data.filter((d)=>(d.rating * 100) > 400)
     }

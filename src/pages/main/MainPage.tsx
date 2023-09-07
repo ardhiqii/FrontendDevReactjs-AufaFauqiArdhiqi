@@ -13,8 +13,8 @@ import {
 } from "../../util/restaurant";
 import Loading from "../../components/loading/Loading";
 const MainPage = () => {
-  const [defaultData, setDefaultData] = useState<[]>();
-  const [dataRestaurant, setDataRestaurant] = useState<[]>();
+  const [defaultData, setDefaultData] = useState<any[]>();
+  const [dataRestaurant, setDataRestaurant] = useState<any[]>();
   const [amount, setAmount] = useState({
     start: 0,
     total: 8,
@@ -51,13 +51,17 @@ const MainPage = () => {
       }
 
       if (price != "Price") {
+        if (!tempData){
+          return
+        }
         tempData = getFilteredRestaurantByPrice(tempData, price);
       }
 
       if (open == true) {
         tempData = tempData?.filter((d) => {
           const id = d.id;
-          return OPEN_DATA[id] == true;
+          const isOpen:boolean = OPEN_DATA[id as keyof typeof OPEN_DATA]
+          return isOpen== true;
         });
       }
       tempData = tempData?.slice(amount.start, amount.total);
@@ -104,21 +108,20 @@ const MainPage = () => {
           <Loading />
         ) : (
           <div className="flex flex-wrap gap-7 w-[81%] m-auto">
-            {dataRestaurant?.map((res, i) => {
+            {dataRestaurant?.map((res) => {
               const { id, name, pictureId, rating } = res;
-
               const resData: CardRestaurantValues = {
                 id,
                 name,
                 rating,
                 idPicture: pictureId,
-                open: OPEN_DATA[id],
+                open: OPEN_DATA[id as keyof typeof OPEN_DATA],
               };
-              return <CardRestaurant {...resData} key={i} />;
+              return <CardRestaurant {...resData} key={id} />;
             })}
             {filterValues.category == "Categories" &&
               filterValues.price == "Price" &&
-              dataRestaurant?.length < 20 && (
+              dataRestaurant?.length && dataRestaurant?.length < 20 && (
                 <div
                   onClick={loadMoreHandler}
                   className="my-4 mx-auto border-2 font-semibold border-cyan-950 text-cyan-950 flex justify-center py-2 px-36 cursor-pointer hover:bg-gray-300"

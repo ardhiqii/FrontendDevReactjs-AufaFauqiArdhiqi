@@ -5,64 +5,6 @@ import { MapPinIcon, StarIcon } from "@heroicons/react/20/solid";
 import { Tab } from "@headlessui/react";
 import Loading from "../../components/loading/Loading";
 
-const dummy = {
-  foods: [
-    {
-      name: "Paket rosemary",
-    },
-    {
-      name: "Toastie salmon",
-    },
-    {
-      name: "Bebek crepes",
-    },
-    {
-      name: "Salad lengkeng",
-    },
-  ],
-  drinks: [
-    {
-      name: "Es krim",
-    },
-    {
-      name: "Sirup",
-    },
-    {
-      name: "Jus apel",
-    },
-    {
-      name: "Jus jeruk",
-    },
-    {
-      name: "Coklat panas",
-    },
-    {
-      name: "Air",
-    },
-    {
-      name: "Es kopi",
-    },
-    {
-      name: "Jus alpukat",
-    },
-    {
-      name: "Jus mangga",
-    },
-    {
-      name: "Teh manis",
-    },
-    {
-      name: "Kopi espresso",
-    },
-    {
-      name: "Minuman soda",
-    },
-    {
-      name: "Jus tomat",
-    },
-  ],
-};
-const tName = ["Foods", "Drinks"];
 const DetailViewPage = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -70,13 +12,12 @@ const DetailViewPage = () => {
   const [dataRestaurant, setDataRestaurant] = useState();
   useEffect(() => {
     const getData = async () => {
-      const data = await getRestaurantDetail(id);
+      const data = await getRestaurantDetail(id as string);
       const status = data.request?.status;
       if (status) {
         nav("/NotFound", { replace: true });
       } else {
         setDataRestaurant(data);
-        console.log(data);
         setLoading(false);
       }
     };
@@ -85,7 +26,7 @@ const DetailViewPage = () => {
   if (loading) {
     return <Loading/>;
   }
-  const { name, pictureId, rating, city, address } = dataRestaurant;
+  const { name, pictureId, rating, city, address,menus }:any = dataRestaurant;
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="flex flex-col w-96 gap-2 border-2 rounded-md p-4 shadow-xl">
@@ -108,7 +49,7 @@ const DetailViewPage = () => {
         <div className="w-full">
           <Tab.Group>
             <Tab.List className="flex bg-cyan-950 w-full justify-evenly px-1 py-1">
-              {Object.keys(dummy).map((name, idx) => (
+              {Object.keys(menus).map((name, idx) => (
                 <Tab
                   key={idx}
                   className={({ selected }) =>
@@ -122,9 +63,9 @@ const DetailViewPage = () => {
               ))}
             </Tab.List>
             <Tab.Panels>
-              {Object.values(dummy).map((items) => (
+              {Object.values(menus).map((items:any) => (
                 <Tab.Panel className=" flex flex-col gap-y-2 mt-2 h-72 overflow-y-auto">
-                  {items.map(({ name }) => (
+                  {items.map(({ name }:any) => (
                     <div className="bg-gray-200 py-1 px-1 font-semibold">
                       {name}
                     </div>
